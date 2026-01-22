@@ -200,10 +200,10 @@ dot -Tpdf drpc-managed-cluster-strawman-graphviz.dot -o drpc-managed-cluster-str
 
 ## Related Documentation
 
-- [OCM Dependencies Analysis](./ocm-dependencies-analysis.md)
-- [OCM Dependencies Diagrams](./ocm-dependencies-diagrams.md)
-- [OCM Dependencies Isolation](./ocm-dependencies-isolation.md)
-- [Failover Sequence Diagrams](./failover-sequence-diagrams.md)
+- [OCM Dependencies Analysis](../docs/ocm-dependencies-analysis.md)
+- [OCM Dependencies Diagrams](../docs/ocm-dependencies-diagrams.md)
+- [OCM Dependencies Isolation](../docs/ocm-dependencies-isolation.md)
+- [Failover Sequence Diagrams](../failover-sequence-docs/failover-sequence-diagrams.md)
 
 ## Summary
 
