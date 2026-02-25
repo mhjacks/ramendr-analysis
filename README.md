@@ -6,7 +6,7 @@ Ramen is currently the premier community Disaster Recovery orchestrator for Kube
 slanted towards the Red Hat/IBM "ecosystem" within Kubernetes, currently having siginificant dependencies on both
 Ceph/ODF and OCM/RHACM. We believe that it would be beneficial for the whole Kubernetes community -- especially
 the parts that are not running OpenShift and Red Hat Advanced Cluster Management -- to have standards for
-Disaster Recovery, and Ramen has some very appealing features to make it that. SpecificallyAt the same time, other
+Disaster Recovery, and Ramen is the current incumbent in that space. At the same time, other
 orchestrators can make use of a standardized set of replication objects, and compete with Ramen in this space as
 desired. The landscape is especially challenging for storage array vendors, whose products feature sophisticated
 replication capabilities, but Kubernetes currently lacks the standardized mechanisms to allow their use. One of
@@ -19,7 +19,7 @@ drivers; these objects can then be operated on by Ramen directly.
 standardized way of talking about replication status between clusters. A pre-requisite for having a standardized
 orchestrator is having a vendor-independent way of operating on storage objects, which Ramen has defined. This effort
 is now underway in the Kubernetes Storage SIG and Data Protection Working Group as of February 2026. Previous attempts
-to standardize these add-ons failed because there was not quorum or agreement from storage solution
+to standardize these add-ons failed because there was no quorum or agreement from storage solution
 vendors/implementors; this proposal has in part been prompted by a higher level of interest in such a standardization
 process from different storage solution providers.
 
