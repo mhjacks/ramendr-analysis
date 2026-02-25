@@ -33,11 +33,11 @@ orchestration implementation to control Ramen and the DR process.
 
 1. *Strengthen Ramen Upstream.* We believe that creating this architectural space within the Ramen project will make
 Ramen more appealing to a broader audience, especially storage solution providers; in particular any who may have
-initially evaluated Ramen and rejected it for being too Red Hat or IBM-specific. Historically, that is an
-accurate description of Ramen upstream, though we note that upstream tests use OCM as opposed to ACM, do not use
-OpenShift, and use MinIO (for example). Still, without a path to the standardization of the CSI add-ons, or without
-any expressed interest from the project in accepting work towards making the ACM dependency optional, potential
-contributors might have considered other options before trying to contribute to Ramen.
+initially evaluated Ramen and rejected it for being too Red Hat or IBM-specific. Historically, the Ramen technology
+stack has focused on Red Hat and OpenShift-centric technologies (specifically ACM and ODF), though the Ramen upstream
+tests use OCM as opposed to ACM, minikube as opposed to OpenShift, MinIO as opposed to Ceph. Still, without a path
+to the standardization of the CSI add-ons (thereby showing a path for other users for the orchestration part of Ramen), or without any expressed interest from the project in accepting work towards making the ACM dependency optional,
+potential contributors might have considered other options before trying to contribute to Ramen.
 
 ### Non-Goals
 
@@ -68,14 +68,14 @@ This document describes the APIs that Ramen itself provides.
 
 #### [CSI AddOns Architecture and Workflows](csi-sequence/CSI-ADDON-DR-WORKFLOWS-README.md)
 
-These documents describe how Ramen interacts with the CSI Replication Addons.
+This document describes how Ramen interacts with the CSI Replication Addons.
 
 [Architecture and Workflows](csi-sequence/csi-addon-dr-architecture-and-workflows.md)
 [GraphViz dot files](csi-sequence/csi-addon-dr-architecture-and-workflows-graphviz.dot)
 
 #### [Failover Sequence Documentation](failover-sequence-docs/FAILOVER-DIAGRAMS-README.md)
 
-These documents describe Ramen's failover and state machine operations in detail.
+Thils document describes Ramen's failover and state machine operations in detail.
 
 [Diagrams](failover-sequence-docs/failover-sequence-diagrams.md)
 [GraphViz dot files](failover-sequence-docs/failover-sequence-diagrams-graphviz.dot)
