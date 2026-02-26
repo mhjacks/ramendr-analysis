@@ -15,6 +15,17 @@ drivers; these objects can then be operated on by Ramen directly.
 
 ### Goals
 
+What we are proposing will take place in two phases. The first phase will include introducing abstractions into
+Ramen to allow for an alternative path to follow besides OCM. This is collectively the "Inter-Cluster State API"
+referred to in this diagram. This will allow for someone with sufficient motivation to implement an Object Transport
+System as an alternative to OCM.
+
+Meanwhile, the Inter-Cluster State API will be contributed to Ramen, and the CSI Replication Add-Ons (aka CSI Repl
+API) will be proposed and standardized upstream in Kubernetes.
+
+[Phase 1 - Create API for OCM Abstraction](./images/ramendr-proposal-create-api.png)
+[Phase 2 - Motivated 3rd Party Implements API for OCM Abstraction](./images/ramendr-proposal-implements-api.png)
+
 1. *Standardize Ramen's CSI Add-ons as part of the Kubernetes CSI specification.* Today, Kubernetes does not have a
 standardized way of talking about replication status between clusters. A pre-requisite for having a standardized
 orchestrator is having a vendor-independent way of operating on storage objects, which Ramen has defined. This effort
