@@ -108,7 +108,8 @@ These documents list the actual dependencies on ACM/OCM in Ramen.
 In the absence of ACM/OCM, the question of where to locate the DR orchestration and control plane is open. This is a
 strawman proposal for what such a thing might look like if the managed clusters themselves were running the
 orchestration layer. (Other products in the marketplace take this approach.) This is not the only possible solution,
-and is not intended to be construed as a requirement.
+and is not intended to be construed as a requirement. In general, the question of where the control plane functions
+run (for example, on managed clusters or on a separate cluster) is out of scope of this proposal.
 
 [Strawman Proposal](drpc-managed-cluster/drpc-managed-cluster-strawman.md)
 [Strawman Sequences Proposal](drpc-managed-cluster/drpc-managed-cluster-strawman-sequences.md)
