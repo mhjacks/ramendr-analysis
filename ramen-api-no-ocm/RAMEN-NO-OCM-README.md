@@ -49,9 +49,9 @@ ManifestWork CR specs on the hub and applies them to the resources in the manage
 of the updates by updating the status of the ManifestWork CR on the hub. Alternatively a push model might be used where
 an agent on the hub pushes resource changes to the managed clusters.
 
-For purposes of discussion in this document, this vendor provided infrastructure shall be called the Vendor Resource Management Layer (VRML).
+For purposes of discussion in this document, this vendor provided infrastructure shall be called the Object Transport System (OTS).
 
-The VRML must implement the following APIs for the ManifestWork and ManagedClusterView CRs.
+The OTS must implement the following APIs for the ManifestWork and ManagedClusterView CRs.
 
 #### ManifestWork API
 
@@ -60,19 +60,19 @@ OCM documentation explaining the ManifestWork concepts can be found
 [here](https://open-cluster-management.io/docs/concepts/work-distribution/manifestwork/).
 
 Ramen creates the following resources types via ManifestWork and these must be supported
-in the VRML.
+in the OTS.
 - VolumeReplicationGroup
 - Namespace
 - DRClusterConfig
 
-Many of the fields in the ManifestWork spec are not used by Ramen and support for them is not required in the VRML. These fields are:
+Many of the fields in the ManifestWork spec are not used by Ramen and support for them is not required in the OTS. These fields are:
 - deleteOption
 - executor
 - manifestConfigs:items:conditionRules
 - manifestConfigs:items:feedbackRules
 - manifestConfigs:items:updateStrategy
 
-The VRML must set the following status Conditions in the ManifestWork CR according to the state of the resource(s) in the managed cluster.
+The OTS must set the following status Conditions in the ManifestWork CR according to the state of the resource(s) in the managed cluster.
 - WorkApplied - manifests have been applied
 - WorkAvailable - resources are available/ready
 - WorkDegraded - resources have issues
@@ -84,10 +84,10 @@ The ManagedClusterView Custom Resource is defined [here](./managedclusterview.cr
 namespaced resource. To get the status of resources in managed cluster X the ManagedClusterView CR is created in
 namespace X in the hub cluster.
 
-The VRML must watch for changes in the specs of ManagedClusterView CRs in the managed cluster namespace on the hub and
+The OTS must watch for changes in the specs of ManagedClusterView CRs in the managed cluster namespace on the hub and
 then query the required resources on the maanged clusters and update the ManagedClusterView CR status.
 
-Ramen gets the status of the following resources types via ManagedClusterView CRs and the VRML must support these.
+Ramen gets the status of the following resources types via ManagedClusterView CRs and the OTS must support these.
 - VolumeReplicationGroup
 - DRClusterConfig
 - StorageClass
@@ -115,7 +115,7 @@ Before using Ramen without OCM to protect workloads the same setup as for Ramen 
 exceptions and additions. Namely
 - The ManifestWork and ManagedClusterView CRDs from OCM must be installed in the hub cluster. There is no requirement for
   anything else from OCM/RHACM.
-- The VRML must be installed and operating.
+- The OTS must be installed and operating.
 - Storage replication must be enabled.
 - S3 compatible storage must be created and configured.
 - A [DRCluster](./drcluster.crd.md) CR must be created in the hub cluster for each managed cluster.
@@ -254,4 +254,4 @@ Standard Kubernetes conditions; check `type` and `status` (True/False).
 ## Deletion and Garbage Collection
 
 When a workload is removed from data protection Ramen will clean up resources it created on the hub and managed
-clusters. It will be the responsibility of the VRML to delete the resources it created.
+clusters. It will be the responsibility of the OTS to delete the resources it created.
