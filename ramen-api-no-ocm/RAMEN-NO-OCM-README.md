@@ -8,7 +8,7 @@ this provides useful background information.
 
 ## Breaking the OCM Dependencies
 
-As covered in [OCM/RHACM Dependencies Documentation](../docs/OCM-DEPENDENCIES-README.md) four core dependencies on OCM which need to be broken are
+As covered in [OCM/RHACM Dependencies Documentation](../docs/OCM-DEPENDENCIES-README.md) four core dependencies on OCM which need to be broken out are
 - ManifestWork - For resource deployment
 - ManagedClusterView - For status reading
 - Placement/PlacementDecision - For cluster selection
@@ -19,35 +19,26 @@ They are addressed in the following sections.
 ### ManagedCluster
 
 There will be no cluster discovery or management in Ramen without OCM, and hence no ManagedCluster CRs.
-The managed clusters are each defined in a DRCluster CR on the hub cluster. See [TODO ref].
+The managed clusters are each defined in a DRCluster CR on the hub cluster. See [DRCluster CRD](./drplacementcontrol.crd.md) for more information.
 
 ### Placement and PlacementDecision
 
-In OCM the Placement and PlacementDecision CRs provide sophisticated capabilities for managing the placement of
-workloads on clusters.  In Ramen without OCM there is just a simple choice of on which managed cluster the workload is
-to be deployed. This can be specified in the DRPC and there is no need for the Placement and PlacementDecision CRs.
+In OCM the Placement and PlacementDecision CRs provide sophisticated capabilities for managing the placement of workloads on clusters.  In Ramen without OCM there is just a simple choice of on which managed cluster the workload is to be deployed. This can be specified in the DRPC and there is no need for the Placement and PlacementDecision CRs.
 
 ### ManifestWork and ManagedClusterView
 
-In Ramen with OCM, ManifestWork CRs are used to deploy resources (such as a VRG) from the hub to the managed
-clusters. To deploy a resource from the hub to a managed cluster, a ManifestWork CR encapsulating the resource is
+In Ramen with OCM, ManifestWork CRs are used to deploy resources (such as a VRG) from the hub to the managed clusters. To deploy a resource from the hub to a managed cluster, a ManifestWork CR encapsulating the resource is
 created on the hub in the namespace of the target managed cluster and OCM takes care of deploying the resource in the
 target managed cluster and updating the status of the ManifestWork CR to reflect the deployment status.
 
-Similarly to get the status of resources on a managed cluster a ManagedClusterView CR is created on the hub describing
-resources to get status for and OCM takes care of retrieving the status of the resources from the managed cluster and
-updating the status of the ManagedClusterView CR with the retrieved status.
+Similarly, in order to get the status of resources on a managed cluster, a ManagedClusterView CR is created on the hub. While this CR describes the resources, it is OCM's responsibility to retrieve the status of these resources from the managed cluster as well as to update the status of the ManagedClusterViewCR accordingly.
 
 In Ramen without OCM it is proposed to use the same ManifestWork and ManagedClusterView CRs for deploying resources and
 getting resource state, but with the vendor using Ramen without OCM providing the infrastructure to
 - in the case of ManifestWork, create, update or delete resources on the managed clusters and update the ManifestWork status on the hub
 - in the case of ManagedClusterView, get the status of resources on managed clusters and update the status of ManagedClusterView on the hub
 
-The architecture and implementation of this infrastructure left to the vendor integrating with Ramen without OCM.  OCM
-for example manages ManifestWork with a pull model where an agent on the managed clusters watches for changes in
-ManifestWork CR specs on the hub and applies them to the resources in the managed cluster, while reporting the status
-of the updates by updating the status of the ManifestWork CR on the hub. Alternatively a push model might be used where
-an agent on the hub pushes resource changes to the managed clusters.
+The architecture and implementation of this infrastructure is left to the vendor integrating with Ramen without OCM.  OCM for example manages ManifestWork with a pull model where an agent on the managed clusters watches for changes in ManifestWork CR specs on the hub and applies them to the resources in the managed cluster, while reporting the status of the updates by updating the status of the ManifestWork CR on the hub. Alternatively a push model might be used where an agent on the hub pushes resource changes to the managed clusters.
 
 For purposes of discussion in this document, this vendor provided infrastructure shall be called the Object Transport System (OTS).
 
@@ -85,7 +76,7 @@ namespaced resource. To get the status of resources in managed cluster X the Man
 namespace X in the hub cluster.
 
 The OTS must watch for changes in the specs of ManagedClusterView CRs in the managed cluster namespace on the hub and
-then query the required resources on the maanged clusters and update the ManagedClusterView CR status.
+then query the required resources on the managed clusters and update the ManagedClusterView CR status.
 
 Ramen gets the status of the following resources types via ManagedClusterView CRs and the OTS must support these.
 - VolumeReplicationGroup
@@ -104,7 +95,7 @@ A couple of alternatives to the above for dealing with the ManifestWork and Mana
 1. Dispense with the ManifestWork and ManagedClusterView wrappers and use new Ramen "wrapper" CRs which convey the same
    core information. This will eliminate use of OCM CRDs but will require the implementation of a translation layer in
    Ramen.
-1. Rather than use of CRDs to manage resource state provide a gRPC API. In this case the vendor would need to provide a
+2. Rather than use of CRDs to manage resource state provide a gRPC API. In this case the vendor would need to provide a
    server in a sidecar or plugin of some sort to field API calls and effect changes in the managed resources. A server
    would also be needed for the OCM case which would presumably could in turn make use of OCM ManifestWork and
    ManagedClusterView.
@@ -176,7 +167,7 @@ For the purposes of this work, this can safely be ignored and set to `null` and 
 | `PreferredDecision`            | PlacementDecision | The cluster on which the Application should be running                                                                                  |
 | `Conditions`                   | []Condition       | e.g. `Available`, `PeerReady`, `Protected`                                                                                              |
 | `ResourceConditions`           | VRGConditions     | Current condition of the VRGs ``                                                                                                        |
-| `LastUpdateTime`               | Time              |                                                                                                                                         |
+| `LastUpdateTime`               | Time              | Most recent update time a condition or the overall status were updated                                                                  |
 | `lastGroupSyncTime`            | Time              | Most recent sync time for all PVCs                                                                                                      |
 | `lastGroupSyncDuration`        | Duration          | How long sync took to run                                                                                                               |
 | `lastGroupSyncBytes`           | int               | Size of most recent sync                                                                                                                |
