@@ -77,6 +77,10 @@ orchestrator (referred to as Object Transport System in these documents) where t
 
 ### [Ramen Upstream Proposal](./ramen-api-no-ocm/RAMEN-NO-OCM-README.md)
 
+The link to the proposal contains more details, including specific APIs. An abstraction API will be provided that
+wraps the functionality of critical ACM/OCM APIs (mainly ManifestWork and ManagedClusterView). Any interested party
+can then provide the equivalent functionality to securely transport configuration secrets between clusters.
+
 ### Supporting Documents and Diagrams
 
 These documents were prepared with the assistance of Cursor. The diagrams are in Mermaid format; and in addition
